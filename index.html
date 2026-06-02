@@ -3,66 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AICTE Edunet Project: AI Travel Planner</title>
+    <title>AI Travel Planner Agent</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            background-color: #f4f6f9; 
-            margin: 0;
-            padding: 50px 20px; 
-        }
-        .container { 
-            max-width: 600px; 
-            margin: auto; 
-            background: white; 
-            padding: 40px 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
-        }
-        h1 { 
-            color: #0f62fe; /* IBM Blue */
-            margin-bottom: 20px;
-        }
-        p {
-            color: #393939;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #002d9c;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; background: #eef2f7; padding: 50px; margin: 0; }
+        .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #1e40af; margin-bottom: 10px; }
+        p { color: #475569; font-size: 1.1rem; line-height: 1.6; }
     </style>
 </head>
 <body>
 
+    <div id="root"></div>
+
     <div class="container">
         <h1>AI Travel Planner Agent</h1>
-        <p>This intelligent assistant was built using <span class="highlight">IBM Granite</span> and <span class="highlight">IBM Watsonx Orchestrate</span> for the AICTE Edunet 4-Week Virtual Internship.</p>
+        <p>This intelligent assistant was built using <strong>IBM Granite</strong> and <strong>IBM Watsonx Orchestrate</strong> for the AICTE Edunet 4-Week Virtual Internship.</p>
         <p>Click the chat bubble icon in the bottom-right corner of this screen to plan your trip itineraries and check budget costs dynamically!</p>
     </div>
 
-    <!-- IBM Watsonx Orchestrate Live Chat Integration Snippet -->
     <script>
+      // 1. Core connection config parameters
       window.wxOConfiguration = {
-        orchestrationID: "36c8e78f21ea488381966a951aee8362_b9b52553-27d5-497d-bb51-9c6d97caecd2",
-        hostURL: "https://au-syd.watson-orchestrate.cloud.ibm.com",
+        orchestrationID: "864430bc", 
+        hostURL: "https://dl.watson-orchestrate.ibm.com",
         rootElementID: "root",
-        deploymentPlatform: "ibmcloud",
-        crn: "crn:v1:bluemix:public:watsonx-orchestrate:au-syd:a/36c8e78f21ea488381966a951aee8362:b9b52553-27d5-497d-bb51-9c6d97caecd2::",
+        showLauncher: true, 
         chatOptions: {
-            agentId: "11ca4712-8b78-4be2-aa0b-4d1f05616897", 
+          agentId: "864430bc",
+          agentEnvironmentId: "864430bc"
         }
       };
+
+      // 2. The explicit rendering method that overrides default server-side blocks
       setTimeout(function () {
-        const script = document.createElement('script');
+        const script = document.createElement("script");
         script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
-        script.addEventListener('load', function () {
-            wxoLoader.init();
+        script.addEventListener("load", function () {
+          if (typeof wxoLoader !== 'undefined') {
+              // Initializes the instance connection components
+              wxoLoader.init();
+              
+              // FORCE render to prevent the continuous buffering state
+              if (window.wxOInstance && typeof window.wxOInstance.render === 'function') {
+                  window.wxOInstance.render();
+              }
+          }
         });
         document.head.appendChild(script);
-      }, 0);                     
+      }, 0);
     </script>
 
 </body>
