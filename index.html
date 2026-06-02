@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+   <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +9,11 @@
         body { font-family: Arial, sans-serif; text-align: center; background: #eef2f7; padding: 50px; margin: 0; }
         .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h1 { color: #1e40af; margin-bottom: 10px; }
-        p { color: #475569; font-size: 1.1srem; line-height: 1.6; }
+        p { color: #475569; font-size: 1.1rem; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <!-- MANDATORY: IBM requires an element with id="root" or it spins forever -->
     <div id="root"></div>
 
     <div class="container">
@@ -22,27 +22,31 @@
         <p>Click the chat bubble icon in the bottom-right corner of this screen to plan your trip itineraries and check budget costs dynamically!</p>
     </div>
 
-    <!-- PASTE YOUR EXACT GENERATED SCRIPT BELOW -->
     <script>
+      // 1. Configure the agent layout parameters
       window.wxOConfiguration = {
         orchestrationID: "864430bc", 
         hostURL: "https://dl.watson-orchestrate.ibm.com",
         rootElementID: "root",
-        showLauncher: true, // Forces the chat bubble launcher icon to show up
+        showLauncher: true, 
         chatOptions: {
           agentId: "864430bc",
-          agentEnvironmentId: "864430bc",
-        },
+          agentEnvironmentId: "864430bc"
+        }
       };
 
-      setTimeout(function () {
-        const script = document.createElement("script");
-        script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
-        script.addEventListener("load", function () {
-          wxoLoader.init();
-        });
-        document.head.appendChild(script);
-      }, 0);
+      // 2. Wait until the entire webpage is completely loaded before fetching the widget
+      window.addEventListener('DOMContentLoaded', (event) => {
+          const script = document.createElement("script");
+          script.src = "https://dl.watson-orchestrate.ibm.com/wxochat/wxoLoader.js?embed=true";
+          script.crossOrigin = "anonymous";
+          script.addEventListener("load", function () {
+              if (typeof wxoLoader !== 'undefined') {
+                  wxoLoader.init();
+              }
+          });
+          document.head.appendChild(script);
+      });
     </script>
 
 </body>
