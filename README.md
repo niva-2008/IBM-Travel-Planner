@@ -4,7 +4,7 @@ This project is an AI-powered **Travel Planner Agent**. It is built using **IBM 
 
 ## 🚀 Live Deployment
 The agent is fully deployed and accessible via GitHub Pages! 
-👉 **[Click Here to Interact with the Live Agent](https://niva-2008.github.io/IBM-Travel-Planner/)**
+👉 **[Click Here to Interact with the Live Agent](https://niva-2008.github.io/Travel-Planner-Agent/)**
 
 ## 🛠️ Tech Stack & Architecture
 - **AI Core:** IBM Granite Model (via IBM Cloud Lite)
