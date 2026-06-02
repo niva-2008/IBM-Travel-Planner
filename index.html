@@ -22,7 +22,7 @@
     </div>
 
     <script>
-      // 1. Configure the agent layout parameters
+      // 1. Core connection config parameters
       window.wxOConfiguration = {
         orchestrationID: "864430bc", 
         hostURL: "https://dl.watson-orchestrate.ibm.com",
@@ -34,18 +34,23 @@
         }
       };
 
-      // 2. Wait until the entire webpage is completely loaded before fetching the widget
-      window.addEventListener('DOMContentLoaded', (event) => {
-          const script = document.createElement("script");
-          script.src = "https://dl.watson-orchestrate.ibm.com/wxochat/wxoLoader.js?embed=true";
-          script.crossOrigin = "anonymous";
-          script.addEventListener("load", function () {
-              if (typeof wxoLoader !== 'undefined') {
-                  wxoLoader.init();
+      // 2. The explicit rendering method that overrides default server-side blocks
+      setTimeout(function () {
+        const script = document.createElement("script");
+        script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
+        script.addEventListener("load", function () {
+          if (typeof wxoLoader !== 'undefined') {
+              // Initializes the instance connection components
+              wxoLoader.init();
+              
+              // FORCE render to prevent the continuous buffering state
+              if (window.wxOInstance && typeof window.wxOInstance.render === 'function') {
+                  window.wxOInstance.render();
               }
-          });
-          document.head.appendChild(script);
-      });
+          }
+        });
+        document.head.appendChild(script);
+      }, 0);
     </script>
 
 </body>
